@@ -1,0 +1,2 @@
+include README
+recursive-include nose_cprofile/ *
