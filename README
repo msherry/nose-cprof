@@ -1,0 +1,10 @@
+A plugin to use cProfile to profile nosetests, rather than the built-in Hotshot plugin.
+
+Options:
+--with-cprofile
+  Enable plugin Profile:  Use this plugin to run tests using the
+  cProfile profiler.  [NOSE_WITH_CPROFILE]
+--cprofile-stats-file
+  Profiler stats file; default "stats.dat"
+--cprofile-stats-erase
+  Erase previously-collected profiling statistics before run
