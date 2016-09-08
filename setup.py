@@ -9,11 +9,11 @@ except ImportError:
 PATH_TO_FILE = os.path.dirname(__file__)
 
 
-with open(os.path.join(PATH_TO_FILE, 'README')) as f:
+with open(os.path.join(PATH_TO_FILE, 'README.md')) as f:
     long_description = f.read()
 
 
-VERSION = (0, 1, 1)
+VERSION = (0, 1, 2)
 
 
 # Dynamically calculate the version based on VERSION tuple
@@ -29,7 +29,9 @@ version = str_version
 setup(
     name='nose-cprof',
     version=version,
-    description="A python nose plugin to profile using cProfile rather than the default Hotshot profiler.",
+    description=(
+        'A python nose plugin to profile using cProfile rather than '
+        'the default Hotshot profiler.'),
     long_description=long_description,
     author='Marc Sherry',
     author_email='msherry@gmail.com',
@@ -49,7 +51,7 @@ setup(
     ],
     entry_points={
         'nose.plugins.0.10': [
-            'nose_cprofile = nose_cprofile:Profile',
+            'nose_cprofile = nose_cprofile:cProfiler',
         ]
     },
 )

@@ -2,12 +2,13 @@ import cProfile
 import logging
 import os
 
+import nose
 from nose.plugins.base import Plugin
-from nose.util import tolist
 
 log = logging.getLogger('nose.plugins')
 
-class Profile(Plugin):
+
+class cProfiler(Plugin):
     """
     Use this plugin to run tests using the cProfile profiler.
     """
@@ -25,8 +26,8 @@ class Profile(Plugin):
         parser.add_option('--cprofile-stats-file', action='store',
                           dest='profile_stats_file',
                           metavar="FILE",
-                          default=env.get('NOSE_PROFILE_STATS_FILE'),
-                          help='Profiler stats file; default "stats.dat"')
+                          default="stats.dat",
+                          help='Output file name; default "stats.dat"')
         parser.add_option("--cprofile-stats-erase", action="store_true",
                           default=env.get('NOSE_PROFILE_STATS_ERASE'),
                           dest="stats_erase",
@@ -41,8 +42,7 @@ class Profile(Plugin):
     def configure(self, options, conf):
         """Configure plugin.
         """
-        Plugin.configure(self, options, conf)
-        self.conf = conf
+        super(cProfiler, self).configure(options, conf)
         if options.profile_stats_file:
             self.pfile_name = options.profile_stats_file
         else:
@@ -55,6 +55,7 @@ class Profile(Plugin):
         """Wrap entire test run in :func:`prof.runcall`.
         """
         log.debug('preparing test %s' % test)
+
         def run_and_profile(result, prof=self.prof, test=test):
             prof.runcall(test, result)
             prof.dump_stats(self.pfile_name)
@@ -69,4 +70,4 @@ class Profile(Plugin):
 
 
 if __name__ == '__main__':
-    nose.main(addplugins=[Profile()])
+    nose.main(addplugins=[cProfiler()])
