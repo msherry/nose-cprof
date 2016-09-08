@@ -1,16 +1,16 @@
-import os
-
 try:
     from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup, find_packages
 
 
-PATH_TO_FILE = os.path.dirname(__file__)
-
-
-with open(os.path.join(PATH_TO_FILE, 'README.md')) as f:
-    long_description = f.read()
+# Try to convert the readme to RST, which is what PyPi supports. The only
+# developers who need pypandoc installed are maintainers of this plugin
+try:
+    import pypandoc
+    long_description = pypandoc.convert_file('README.md', 'rst')
+except ImportError:
+    long_description = open('README.md').read()
 
 
 VERSION = (0, 1, 2)
