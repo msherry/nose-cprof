@@ -1,3 +1,6 @@
+import os
+import re
+
 try:
     from setuptools import setup, find_packages
 except ImportError:
@@ -13,22 +16,14 @@ except ImportError:
     long_description = open('README.md').read()
 
 
-VERSION = (0, 1, 2)
-
-
-# Dynamically calculate the version based on VERSION tuple
-if len(VERSION) > 2 and VERSION[2] is not None:
-    str_version = "%s.%s_%s" % VERSION[:3]
-else:
-    str_version = "%s.%s" % VERSION[:2]
-
-
-version = str_version
-
-
 setup(
     name='nose-cprof',
-    version=version,
+    version=(
+        re
+        .compile(r".*__version__ = '(.*?)'", re.S)
+        .match(open(os.path.join('nose_cprofile', '__init__.py')).read())
+        .group(1)
+    ),
     description=(
         'A python nose plugin to profile using cProfile rather than '
         'the default Hotshot profiler.'),
