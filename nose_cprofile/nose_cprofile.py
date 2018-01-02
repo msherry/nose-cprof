@@ -1,6 +1,7 @@
 import cProfile
 import logging
 import os
+import pstats
 
 import nose
 from nose.plugins.base import Plugin
@@ -58,7 +59,12 @@ class cProfiler(Plugin):
 
         def run_and_profile(result, prof=self.prof, test=test):
             prof.runcall(test, result)
-            prof.dump_stats(self.pfile_name)
+            stats = pstats.Stats(prof)
+            if os.path.exists(self.pfile_name):
+                log.debug('accumulating current stats in existing file %s'
+                          % self.pfile_name)
+                stats.add(self.pfile_name)
+            stats.dump_stats(self.pfile_name)
         return run_and_profile
 
     def finalize(self, result):
