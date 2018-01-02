@@ -33,7 +33,9 @@ class cProfiler(Plugin):
                           default=env.get('NOSE_PROFILE_STATS_ERASE'),
                           dest="stats_erase",
                           help="Erase previously-collected profiling "
-                          "statistics before run")
+                          "statistics before run. Without this option, "
+                          "new profiling stats will be merged with "
+                          "the prior contents of the output file.")
 
     def begin(self):
         """Instantiate profiler

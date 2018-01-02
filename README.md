@@ -33,6 +33,6 @@ This plugin adds some new options to `nosetests`:
                       Output file name; default "stats.dat"
 --cprofile-stats-erase
                       Erase previously-collected profiling statistics before
-                      run. Without this options, new profiling stats will be
-                      merged with prior content of the output file.
+                      run. Without this option, new profiling stats will be
+                      merged with the prior contents of the output file.
 ```
